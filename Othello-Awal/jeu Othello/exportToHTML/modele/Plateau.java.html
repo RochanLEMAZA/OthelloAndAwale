@@ -1,0 +1,431 @@
+<html>
+<head>
+<title>Plateau.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #6a8759;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Plateau.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">modele</span><span class="s0">;</span>
+<span class="s0">public class </span><span class="s1">Plateau {</span>
+    <span class="s0">private </span><span class="s1">String[][] board</span><span class="s0">;</span>
+    <span class="s0">private int </span><span class="s1">l</span><span class="s0">;</span>
+    <span class="s0">private int </span><span class="s1">c</span><span class="s0">;</span>
+
+
+    <span class="s0">public </span><span class="s1">Plateau() {</span>
+        <span class="s1">board = </span><span class="s0">new </span><span class="s1">String[</span><span class="s2">8</span><span class="s1">][</span><span class="s2">8</span><span class="s1">]</span><span class="s0">;</span>
+
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">8</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">8</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s0">if </span><span class="s1">((i == </span><span class="s2">3 </span><span class="s1">&amp;&amp; j == </span><span class="s2">3</span><span class="s1">) || (i == </span><span class="s2">4 </span><span class="s1">&amp;&amp; j == </span><span class="s2">4</span><span class="s1">)) {</span>
+                    <span class="s1">board[i][j] = </span><span class="s3">&quot;</span><span class="s0">\u26AA</span><span class="s3">&quot;</span><span class="s0">;</span>
+                <span class="s1">} </span><span class="s0">else if </span><span class="s1">((i == </span><span class="s2">3 </span><span class="s1">&amp;&amp; j == </span><span class="s2">4</span><span class="s1">) || (i == </span><span class="s2">4 </span><span class="s1">&amp;&amp; j == </span><span class="s2">3</span><span class="s1">)) {</span>
+                    <span class="s1">board[i][j] = </span><span class="s3">&quot;</span><span class="s0">\u26AB</span><span class="s3">&quot;</span><span class="s0">;</span>
+                <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                    <span class="s1">board[i][j] = </span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">display() {</span>
+        <span class="s1">System.out.println(</span><span class="s3">&quot;   A  B  C  D   E  F  G  H&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">8</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">System.out.print(i + </span><span class="s2">1 </span><span class="s1">+ </span><span class="s3">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">8</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s1">System.out.print(board[i][j] + </span><span class="s3">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+            <span class="s1">System.out.println()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">String[][] getBoard() {</span>
+        <span class="s0">return </span><span class="s1">board</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+    <span class="s0">public int </span><span class="s1">compterPion(Joueur joueur) {</span>
+        <span class="s0">int </span><span class="s1">p = </span><span class="s2">0</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">8</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">8</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s0">if </span><span class="s1">(board[i][j] == joueur.getPion()) {</span>
+                    <span class="s1">p++</span><span class="s0">;</span>
+                <span class="s1">}</span>
+
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s1">joueur.setNbPion(p)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(joueur.getPseudo()+</span><span class="s3">&quot; : &quot;</span><span class="s1">+joueur.getNbPion()+</span><span class="s3">&quot; pions&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">p </span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void  </span><span class="s1">Vainqueur(Joueur j1</span><span class="s0">,</span><span class="s1">Joueur j2){</span>
+        <span class="s0">if </span><span class="s1">(compterPion(j1)&gt; compterPion(j2)){</span>
+            <span class="s1">System.out.println(j1.getPseudo()+</span><span class="s3">&quot; a gagné&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">j1.setPartieGagnees(j1.getPartieGagnees()+</span><span class="s2">1</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">else if </span><span class="s1">(compterPion(j1)&lt;compterPion(j2)){</span>
+            <span class="s1">System.out.println(j2.getPseudo()+</span><span class="s3">&quot;a gagné&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">j1.setPartieGagnees(j2.getPartieGagnees()+</span><span class="s2">1</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">System.out.println(</span><span class="s3">&quot;égalité&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">estPlein() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">8</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">8</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s0">if </span><span class="s1">(board[i][j] == </span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">) {</span>
+                    
+                    <span class="s0">return false;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+       
+        <span class="s0">return true;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">verifDiagonalBasDroit(</span><span class="s0">int </span><span class="s1">l</span><span class="s0">,int </span><span class="s1">c</span><span class="s0">,</span><span class="s1">Joueur joueur){</span>
+        <span class="s0">this</span><span class="s1">.l=l</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.c=c</span><span class="s0">;</span>
+        <span class="s1">l=l-</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s1">c=c-</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">((l&gt;=</span><span class="s2">0 </span><span class="s1">&amp;&amp; l&lt;</span><span class="s2">6</span><span class="s1">)&amp;&amp;(c&gt;=</span><span class="s2">0 </span><span class="s1">&amp;&amp; c&lt;</span><span class="s2">6</span><span class="s1">)) {</span>
+            <span class="s0">if </span><span class="s1">((board[l + </span><span class="s2">1</span><span class="s1">][c + </span><span class="s2">1</span><span class="s1">] != joueur.getPion()) &amp;&amp; (board[l + </span><span class="s2">1</span><span class="s1">][c + </span><span class="s2">1</span><span class="s1">] != </span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = l + </span><span class="s2">2</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">8</span><span class="s0">;</span><span class="s1">i++ ) {</span>
+                    <span class="s0">if </span><span class="s1">(((board[i][c+</span><span class="s2">2</span><span class="s1">]!=(joueur.getPion())) &amp;&amp; ((board[i][c+</span><span class="s2">2</span><span class="s1">]!=</span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)) )){</span>
+                        <span class="s1">c=c+</span><span class="s2">1</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(c+</span><span class="s2">2</span><span class="s1">&gt;</span><span class="s2">7</span><span class="s1">|| i&gt;</span><span class="s2">7</span><span class="s1">){</span>
+ 
+                            <span class="s0">return false;</span>
+                        <span class="s1">}</span>
+
+                    <span class="s1">}</span>
+                    <span class="s0">else if </span><span class="s1">((board[i][c+</span><span class="s2">2</span><span class="s1">]==</span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)) {</span>
+
+                        <span class="s0">return false;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">else </span><span class="s1">{</span>
+
+                        <span class="s0">return true;</span>
+
+                    <span class="s1">}</span>
+
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">else </span><span class="s1">{</span>
+
+
+                <span class="s0">return false;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s0">return false;</span>
+    <span class="s1">}</span>
+
+
+
+    <span class="s0">public boolean </span><span class="s1">verifDiagonalBasGauche(</span><span class="s0">int </span><span class="s1">l</span><span class="s0">,int </span><span class="s1">c</span><span class="s0">,</span><span class="s1">Joueur joueur){</span>
+        <span class="s0">this</span><span class="s1">.l=l</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.c=c</span><span class="s0">;</span>
+        <span class="s1">l=l-</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s1">c=c-</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">((l&gt;=</span><span class="s2">0 </span><span class="s1">&amp;&amp; l&lt;</span><span class="s2">6</span><span class="s1">)&amp;&amp;(c&gt;=</span><span class="s2">2 </span><span class="s1">&amp;&amp; c&lt;</span><span class="s2">8</span><span class="s1">)) {</span>
+            <span class="s0">if </span><span class="s1">((board[l + </span><span class="s2">1</span><span class="s1">][c - </span><span class="s2">1</span><span class="s1">] != joueur.getPion()) &amp;&amp; (board[l + </span><span class="s2">1</span><span class="s1">][c - </span><span class="s2">1</span><span class="s1">] != </span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = l + </span><span class="s2">2</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">8</span><span class="s0">;</span><span class="s1">i++ ) {</span>
+                    <span class="s0">if </span><span class="s1">(((board[i][c-</span><span class="s2">2</span><span class="s1">]!=(joueur.getPion())) &amp;&amp; ((board[i][c-</span><span class="s2">2</span><span class="s1">]!=</span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)))){</span>
+                        <span class="s1">c=c-</span><span class="s2">1</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(c-</span><span class="s2">2</span><span class="s1">&lt;</span><span class="s2">0</span><span class="s1">||i&gt;</span><span class="s2">7</span><span class="s1">){</span>
+                            <span class="s0">return false;</span>
+                        <span class="s1">}</span>
+
+                    <span class="s1">}</span>
+                    <span class="s0">else if </span><span class="s1">((board[i][c-</span><span class="s2">2</span><span class="s1">]==</span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)) {</span>
+                        <span class="s0">return false;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">else </span><span class="s1">{</span>
+                        <span class="s0">return true;</span>
+
+                    <span class="s1">}</span>
+
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">else </span><span class="s1">{</span>
+                <span class="s0">return false;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return false;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">verifDiagonalHautDroit(</span><span class="s0">int </span><span class="s1">l</span><span class="s0">,int </span><span class="s1">c</span><span class="s0">,</span><span class="s1">Joueur joueur){</span>
+        <span class="s0">this</span><span class="s1">.l=l</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.c=c</span><span class="s0">;</span>
+        <span class="s1">l=l-</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s1">c=c-</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">((l&gt;=</span><span class="s2">2 </span><span class="s1">&amp;&amp; l&lt;</span><span class="s2">8</span><span class="s1">)&amp;&amp;(c&gt;=</span><span class="s2">0 </span><span class="s1">&amp;&amp; c&lt;</span><span class="s2">6</span><span class="s1">)) {</span>
+            <span class="s0">if </span><span class="s1">((board[l - </span><span class="s2">1</span><span class="s1">][c + </span><span class="s2">1</span><span class="s1">] != joueur.getPion()) &amp;&amp; (board[l - </span><span class="s2">1</span><span class="s1">][c + </span><span class="s2">1</span><span class="s1">] != </span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = l - </span><span class="s2">2</span><span class="s0">; </span><span class="s1">i &gt;-</span><span class="s2">1</span><span class="s0">;</span><span class="s1">i-- ) {</span>
+                    <span class="s0">if </span><span class="s1">(((board[i][c+</span><span class="s2">2</span><span class="s1">]!=(joueur.getPion())) &amp;&amp; ((board[i][c+</span><span class="s2">2</span><span class="s1">]!=</span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)))){</span>
+                        <span class="s1">c++</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(c+</span><span class="s2">2</span><span class="s1">&gt;</span><span class="s2">7</span><span class="s1">||i&lt;</span><span class="s2">0</span><span class="s1">){</span>
+                            <span class="s0">return false;</span>
+                        <span class="s1">}</span>
+
+                    <span class="s1">}</span>
+                    <span class="s0">else if </span><span class="s1">((board[i][c+</span><span class="s2">2</span><span class="s1">]==</span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)) {</span>
+                        <span class="s0">return false;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">else </span><span class="s1">{</span>
+                        <span class="s0">return true;</span>
+
+                    <span class="s1">}</span>
+
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">else </span><span class="s1">{</span>
+                <span class="s0">return false;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return false;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">verifDiagonalHautGauche(</span><span class="s0">int </span><span class="s1">l</span><span class="s0">,int </span><span class="s1">c</span><span class="s0">,</span><span class="s1">Joueur joueur){</span>
+        <span class="s0">this</span><span class="s1">.l=l</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.c=c</span><span class="s0">;</span>
+        <span class="s1">l=l-</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s1">c=c-</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">((l&gt;=</span><span class="s2">2 </span><span class="s1">&amp;&amp; l&lt;</span><span class="s2">8</span><span class="s1">)&amp;&amp;(c&gt;=</span><span class="s2">2 </span><span class="s1">&amp;&amp; c&lt;</span><span class="s2">8</span><span class="s1">)) {</span>
+            <span class="s0">if </span><span class="s1">((board[l - </span><span class="s2">1</span><span class="s1">][c - </span><span class="s2">1</span><span class="s1">] != joueur.getPion()) &amp;&amp; (board[l - </span><span class="s2">1</span><span class="s1">][c - </span><span class="s2">1</span><span class="s1">] != </span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = l - </span><span class="s2">2</span><span class="s0">; </span><span class="s1">i&gt;-</span><span class="s2">1</span><span class="s0">;</span><span class="s1">i-- ) {</span>
+                    <span class="s0">if </span><span class="s1">(((board[i][c-</span><span class="s2">2</span><span class="s1">]!=(joueur.getPion())) &amp;&amp; ((board[i][c-</span><span class="s2">2</span><span class="s1">]!=</span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)))){</span>
+                        <span class="s1">c--</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(c-</span><span class="s2">2</span><span class="s1">&lt;</span><span class="s2">0</span><span class="s1">||i&lt;</span><span class="s2">0</span><span class="s1">){</span>
+                            <span class="s0">return false;</span>
+                        <span class="s1">}</span>
+
+                    <span class="s1">}</span>
+                    <span class="s0">else if </span><span class="s1">((board[i][c-</span><span class="s2">2</span><span class="s1">]==</span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)) {</span>
+                        <span class="s0">return false;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">else </span><span class="s1">{</span>
+                        <span class="s0">return true;</span>
+
+                    <span class="s1">}</span>
+
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">else </span><span class="s1">{</span>
+
+                <span class="s0">return false;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return false;</span>
+    <span class="s1">}</span>
+
+
+
+
+    <span class="s0">public boolean </span><span class="s1">verifHorizontalDroit(</span><span class="s0">int </span><span class="s1">l</span><span class="s0">,int </span><span class="s1">c</span><span class="s0">,</span><span class="s1">Joueur joueur){</span>
+        <span class="s0">this</span><span class="s1">.l=l</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.c=c</span><span class="s0">;</span>
+        <span class="s1">l=l-</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s1">c=c-</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">((c&gt;=</span><span class="s2">0 </span><span class="s1">&amp;&amp; c&lt;</span><span class="s2">6</span><span class="s1">)) {</span>
+            <span class="s0">if </span><span class="s1">((board[l][c + </span><span class="s2">1</span><span class="s1">] != joueur.getPion()) &amp;&amp; (board[l][c + </span><span class="s2">1</span><span class="s1">] != </span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = c + </span><span class="s2">2</span><span class="s0">; </span><span class="s1">i&lt;</span><span class="s2">8</span><span class="s0">;</span><span class="s1">i++ ) {</span>
+                    <span class="s0">if </span><span class="s1">(((board[l][i]!=(joueur.getPion())) &amp;&amp; ((board[l][i]!=</span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)))){</span><span class="s0">;</span>
+                        <span class="s0">continue;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">else if </span><span class="s1">((board[l][i]==</span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)) {</span>
+                        <span class="s0">return false;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">else </span><span class="s1">{</span>
+                        <span class="s0">return true;</span>
+
+                    <span class="s1">}</span>
+
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">else </span><span class="s1">{</span>
+                <span class="s0">return false;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return false;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">verifHorizontalGauche(</span><span class="s0">int </span><span class="s1">l</span><span class="s0">,int </span><span class="s1">c</span><span class="s0">,</span><span class="s1">Joueur joueur){</span>
+        <span class="s0">this</span><span class="s1">.l=l</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.c=c</span><span class="s0">;</span>
+        <span class="s1">l=l-</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s1">c=c-</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">((c&gt;</span><span class="s2">2 </span><span class="s1">&amp;&amp; c&lt;=</span><span class="s2">8</span><span class="s1">)) {</span>
+            <span class="s0">if </span><span class="s1">((board[l][c -</span><span class="s2">1</span><span class="s1">] != joueur.getPion()) &amp;&amp; (board[l][c - </span><span class="s2">1</span><span class="s1">] != </span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = c - </span><span class="s2">2</span><span class="s0">; </span><span class="s1">i &gt;-</span><span class="s2">1</span><span class="s0">;</span><span class="s1">i-- ) {</span>
+                    <span class="s0">if </span><span class="s1">(((board[l][i]!=(joueur.getPion())) &amp;&amp; ((board[l][i]!=</span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)))){</span>
+                        <span class="s0">continue;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">else if </span><span class="s1">((board[l][i]==</span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)) {</span>
+                        <span class="s0">return false;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">else </span><span class="s1">{</span><span class="s0">;</span>
+                        <span class="s0">return true;</span>
+
+                    <span class="s1">}</span>
+
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">else </span><span class="s1">{</span>
+                <span class="s0">return false;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return false;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">verifVerticalHaut(</span><span class="s0">int </span><span class="s1">l</span><span class="s0">,int </span><span class="s1">c</span><span class="s0">,</span><span class="s1">Joueur joueur){</span>
+        <span class="s0">this</span><span class="s1">.l=l</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.c=c</span><span class="s0">;</span>
+        <span class="s1">l=l-</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s1">c=c-</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">((l&gt;</span><span class="s2">2 </span><span class="s1">&amp;&amp; l&lt;=</span><span class="s2">8</span><span class="s1">)) {</span>
+            <span class="s0">if </span><span class="s1">((board[l-</span><span class="s2">1</span><span class="s1">][c] != joueur.getPion()) &amp;&amp; (board[l-</span><span class="s2">1</span><span class="s1">][c] != </span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = l - </span><span class="s2">2</span><span class="s0">; </span><span class="s1">i &gt;-</span><span class="s2">1</span><span class="s0">;</span><span class="s1">i-- ) {</span>
+                    <span class="s0">if </span><span class="s1">(((board[i][c]!=(joueur.getPion())) &amp;&amp; ((board[i][c]!=</span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)))){</span>
+                        <span class="s0">continue;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">else if </span><span class="s1">((board[i][c]==</span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)) {</span>
+                        <span class="s0">return false;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">else </span><span class="s1">{</span>
+                        <span class="s0">return true;</span>
+
+                    <span class="s1">}</span>
+
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">else </span><span class="s1">{</span>
+                <span class="s0">return false;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return false;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">verifVerticalBas(</span><span class="s0">int </span><span class="s1">l</span><span class="s0">,int </span><span class="s1">c</span><span class="s0">,</span><span class="s1">Joueur joueur){</span>
+        <span class="s0">this</span><span class="s1">.l=l</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.c=c</span><span class="s0">;</span>
+        <span class="s1">l=l-</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s1">c=c-</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">((l&gt;=</span><span class="s2">0 </span><span class="s1">&amp;&amp; l&lt;</span><span class="s2">6</span><span class="s1">)) {</span>
+            <span class="s0">if </span><span class="s1">((board[l+</span><span class="s2">1</span><span class="s1">][c] != joueur.getPion()) &amp;&amp; (board[l+</span><span class="s2">1</span><span class="s1">][c] != </span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = l + </span><span class="s2">2</span><span class="s0">; </span><span class="s1">i&lt;</span><span class="s2">8</span><span class="s0">;</span><span class="s1">i++ ) {</span>
+                    <span class="s0">if </span><span class="s1">(((board[i][c]!=(joueur.getPion())) &amp;&amp; ((board[i][c]!=</span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)))){</span>
+                        <span class="s0">continue;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">else if </span><span class="s1">((board[i][c]==</span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">)) {</span>
+                        <span class="s0">return false;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">else </span><span class="s1">{</span>
+                        <span class="s0">return true;</span>
+
+                    <span class="s1">}</span>
+
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">else </span><span class="s1">{</span>
+                <span class="s0">return false;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return false;</span>
+    <span class="s1">}</span>
+    <span class="s0">public boolean </span><span class="s1">isLegit(</span><span class="s0">int </span><span class="s1">l </span><span class="s0">, int </span><span class="s1">c </span><span class="s0">, </span><span class="s1">Joueur joueur){</span>
+        <span class="s0">if </span><span class="s1">((board[l - </span><span class="s2">1</span><span class="s1">][c - </span><span class="s2">1</span><span class="s1">] == </span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">) &amp;&amp; ((verifVerticalHaut(l</span><span class="s0">, </span><span class="s1">c</span><span class="s0">, </span><span class="s1">joueur) == </span><span class="s0">true </span><span class="s1">|| verifVerticalBas(l</span><span class="s0">, </span><span class="s1">c</span><span class="s0">, </span><span class="s1">joueur) == </span><span class="s0">true</span>
+                <span class="s1">|| verifHorizontalDroit(l</span><span class="s0">, </span><span class="s1">c</span><span class="s0">, </span><span class="s1">joueur) == </span><span class="s0">true </span><span class="s1">|| verifHorizontalGauche(l</span><span class="s0">, </span><span class="s1">c</span><span class="s0">, </span><span class="s1">joueur) == </span><span class="s0">true </span><span class="s1">|| verifDiagonalBasDroit(l</span><span class="s0">, </span><span class="s1">c</span><span class="s0">, </span><span class="s1">joueur) == </span><span class="s0">true </span><span class="s1">|| verifDiagonalBasGauche(l</span><span class="s0">, </span><span class="s1">c</span><span class="s0">, </span><span class="s1">joueur) == </span><span class="s0">true</span>
+                <span class="s1">|| verifDiagonalHautDroit(l</span><span class="s0">, </span><span class="s1">c</span><span class="s0">, </span><span class="s1">joueur) == </span><span class="s0">true </span><span class="s1">|| verifDiagonalHautGauche(l</span><span class="s0">, </span><span class="s1">c</span><span class="s0">, </span><span class="s1">joueur) == </span><span class="s0">true</span><span class="s1">))) {</span>
+            <span class="s4">//System.out.println(&quot;oui&quot;);</span>
+            <span class="s0">return true;</span>
+        <span class="s1">}</span>
+        <span class="s4">//System.out.println(&quot;non&quot;);</span>
+        <span class="s0">return false;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">appliquerCoup(</span><span class="s0">int </span><span class="s1">row</span><span class="s0">, int </span><span class="s1">col</span><span class="s0">, </span><span class="s1">Joueur j1</span><span class="s0">, </span><span class="s1">Joueur j2) {</span>
+        <span class="s4">//pose et inverse les pions </span>
+        <span class="s1">row--</span><span class="s0">;</span>
+        <span class="s1">col--</span><span class="s0">;</span>
+        <span class="s1">board[row][col] =j1.getPion()</span><span class="s0">;</span>
+
+        <span class="s4">// Vérifie les 8 directions où l'on doit retourner les pieces de l'adversaire</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = -</span><span class="s2">1</span><span class="s0">; </span><span class="s1">i &lt;= </span><span class="s2">1</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = -</span><span class="s2">1</span><span class="s0">; </span><span class="s1">j &lt;= </span><span class="s2">1</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s0">if </span><span class="s1">(i == </span><span class="s2">0 </span><span class="s1">&amp;&amp; j == </span><span class="s2">0</span><span class="s1">) {</span>
+                    <span class="s0">continue;</span>
+                <span class="s1">}</span>
+
+                <span class="s0">int </span><span class="s1">r = row + i</span><span class="s0">;</span>
+                <span class="s0">int </span><span class="s1">c = col + j</span><span class="s0">;</span>
+                <span class="s0">boolean </span><span class="s1">PieceEntre = </span><span class="s0">false; </span><span class="s4">//si il y a des pieces adverses entre les pions du joueur</span>
+                <span class="s0">int </span><span class="s1">numPion = </span><span class="s2">0</span><span class="s0">; </span><span class="s4">//nombre de pion à renverser</span>
+
+                <span class="s0">while </span><span class="s1">(r &gt;= </span><span class="s2">0 </span><span class="s1">&amp;&amp; r &lt; </span><span class="s2">8 </span><span class="s1">&amp;&amp; c &gt;= </span><span class="s2">0 </span><span class="s1">&amp;&amp; c &lt; </span><span class="s2">8</span><span class="s1">) {</span>
+                    <span class="s0">if </span><span class="s1">(board[r][c] == </span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">) {</span>
+                        <span class="s0">break;</span>
+                    <span class="s1">} </span><span class="s0">else if </span><span class="s1">(board[r][c] == j2.getPion()) {</span>
+                        <span class="s1">PieceEntre = </span><span class="s0">true;</span>
+                        <span class="s1">numPion++</span><span class="s0">;</span>
+                    <span class="s1">} </span><span class="s0">else if </span><span class="s1">(board[r][c] == j1.getPion() &amp;&amp; PieceEntre) {</span>
+                        <span class="s4">//Renverse les pions qui se trouvent entre les pions du joueur qui joue</span>
+                        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">k = </span><span class="s2">1</span><span class="s0">; </span><span class="s1">k &lt;= numPion</span><span class="s0">; </span><span class="s1">k++) {</span>
+                            <span class="s1">board[row + k*i][col + k*j] = j1.getPion()</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                        <span class="s0">break;</span>
+                    <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                        <span class="s0">break;</span>
+                    <span class="s1">}</span>
+
+                    <span class="s1">r += i</span><span class="s0">;</span>
+                    <span class="s1">c += j</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+    <span class="s0">public boolean </span><span class="s1">passerTour(Joueur joueur){</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s2">1</span><span class="s0">;</span><span class="s1">i&lt;</span><span class="s2">9</span><span class="s0">;</span><span class="s1">i++){</span>
+            <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">j=</span><span class="s2">1</span><span class="s0">;</span><span class="s1">j&lt;</span><span class="s2">9</span><span class="s0">;</span><span class="s1">j++){</span>
+                <span class="s0">if </span><span class="s1">(board[i-</span><span class="s2">1</span><span class="s1">][j-</span><span class="s2">1</span><span class="s1">] == </span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s1">) {</span>
+                    <span class="s0">if </span><span class="s1">(isLegit(i</span><span class="s0">,</span><span class="s1">j</span><span class="s0">,</span><span class="s1">joueur)){</span>
+                        <span class="s0">return false;</span>
+                    <span class="s1">}</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+
+        <span class="s1">}</span>
+        <span class="s0">return true;</span>
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">resetPlateau(String[][] board) {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s2">0</span><span class="s0">; </span><span class="s1">i&lt;</span><span class="s2">8</span><span class="s0">;</span><span class="s1">i++) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j=</span><span class="s2">0</span><span class="s0">; </span><span class="s1">j&lt;</span><span class="s2">8</span><span class="s0">;</span><span class="s1">j++) {</span>
+                <span class="s0">if </span><span class="s1">((i==</span><span class="s2">3 </span><span class="s1">&amp;&amp; j==</span><span class="s2">3</span><span class="s1">) || (i==</span><span class="s2">4 </span><span class="s1">&amp;&amp; j==</span><span class="s2">4</span><span class="s1">)) {</span>
+                    <span class="s1">board[i][j]=</span><span class="s3">&quot;</span><span class="s0">\u26AA</span><span class="s3">&quot;</span><span class="s0">;</span>
+                <span class="s1">} </span><span class="s0">else if </span><span class="s1">((i==</span><span class="s2">3 </span><span class="s1">&amp;&amp; j==</span><span class="s2">4</span><span class="s1">) || (i==</span><span class="s2">4 </span><span class="s1">&amp;&amp; j==</span><span class="s2">3</span><span class="s1">)) {</span>
+                    <span class="s1">board[i][j]=</span><span class="s3">&quot;</span><span class="s0">\u26AB</span><span class="s3">&quot;</span><span class="s0">;</span>
+                <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                    <span class="s1">board[i][j]=</span><span class="s3">&quot;</span><span class="s0">\uD83D\uDFE9</span><span class="s3">&quot;</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+<span class="s1">}</span></pre>
+</body>
+</html>
